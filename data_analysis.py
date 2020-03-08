@@ -69,36 +69,72 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 from sklearn.neighbors import KNeighborsClassifier
 
-def knn(k):
-    """trains a knn algorithm with k neighbors
-    and show scores on test data
-    
-    """
-    knn = KNeighborsClassifier(n_neighbors=k)
-    print("neighbors :{}".format(k))
+#def knn(k):
+#    """trains a knn algorithm with k neighbors
+#    and show scores on test data
+#    
+#    """
+#    knn = KNeighborsClassifier(n_neighbors=k)
+#    print("neighbors :{}".format(k))
+#
+#    knn.fit(X_train, y_train)
+#    
+#    training_acc = knn.score(X_train, y_train)
+#    test_acc  = knn.score(X_test,y_test)
+#    
+#    print("Test set score: {:.2f}".format(test_acc))
+#
+#    y_eval = y_test.to_frame()
+#    y_eval["prediction"] = knn.predict(X_test)
+#    print(y_eval.sum(axis=1).value_counts())
+#    
+#    return training_acc, test_acc
+#
+#training_accuracy = []
+#test_accuracy = []
+#
+#for i in range(1,11):
+#        training_acc, test_acc = knn(i)
+#        training_accuracy.append(training_acc)
+#        test_accuracy.append(test_acc)
+#
+#import matplotlib.pyplot as plt
+#plt.plot(range(1,11), training_accuracy, label="training accuracy")
+#plt.plot(range(1,11), test_accuracy, label="test accuracy")
+#plt.legend()
 
-    knn.fit(X_train, y_train)
-    
-    training_acc = knn.score(X_train, y_train)
-    test_acc  = knn.score(X_test,y_test)
-    
-    print("Test set score: {:.2f}".format(test_acc))
+# decision tree
 
-    y_eval = y_test.to_frame()
-    y_eval["prediction"] = knn.predict(X_test)
-    print(y_eval.sum(axis=1).value_counts())
-    
-    return training_acc, test_acc
+#from sklearn.tree import DecisionTreeClassifier
+#
+#tree = DecisionTreeClassifier(
+#        max_depth=4, 
+#        random_state=0,
+##        min_samples_leaf=50,
+#        )
+#tree.fit(X_train, y_train)
+#print("accuracy on training set: {:.3f}".format(tree.score(X_train, y_train)))
+#print("accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
+#
+#
+#from sklearn.tree import export_graphviz
+#export_graphviz(
+#        tree, 
+#        out_file="tree.dot",
+#        feature_names=X_train.columns,
+#        class_names=["bad","good"],
+#        impurity=False,
+#        filled=True,
+#        )
+#
+#import graphviz
+#with open("tree.dot") as f:
+#    dot_graph = f.read()
+#graph = graphviz.Source(dot_graph)
+#graph.view()
 
-training_accuracy = []
-test_accuracy = []
+# random forest
 
-for i in range(1,11):
-        training_acc, test_acc = knn(i)
-        training_accuracy.append(training_acc)
-        test_accuracy.append(test_acc)
-
-import matplotlib.pyplot as plt
-plt.plot(range(1,11), training_accuracy, label="training accuracy")
-plt.plot(range(1,11), test_accuracy, label="test accuracy")
-plt.legend()
+from sklearn.ensemble import RandomForestClassifier
+forest = RandomForestClassifier(n_estimators=5)
+forest.fit(X_train, y_train)
